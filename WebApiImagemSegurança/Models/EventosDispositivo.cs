@@ -12,7 +12,9 @@ namespace WebApiImagemSegurança.Models
         public bool statusSucesso { get; set; }
         public bool statusFalha { get; set; }
 
-        public virtual Portao Portao { get; set; }
-        public virtual Camera Camera { get; set; }
+        public int idPortao { get; set; }
+        public Portao Portao { get; set; }
+        public int idCamera { get; set; }
+        public Camera Camera { get; set; }
     }
 }

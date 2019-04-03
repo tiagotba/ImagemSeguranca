@@ -92,9 +92,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Context\BD_Context.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904031429366_criacaoEstrutura.cs" />
+    <Compile Include="Migrations\201904031429366_criacaoEstrutura.Designer.cs">
+      <DependentUpon>201904031429366_criacaoEstrutura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Camera.cs" />
     <Compile Include="Models\Dispositivo.cs" />
     <Compile Include="Models\EventosDispositivo.cs" />
@@ -113,8 +119,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Context\" />
     <Folder Include="Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201904031429366_criacaoEstrutura.resx">
+      <DependentUpon>201904031429366_criacaoEstrutura.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
