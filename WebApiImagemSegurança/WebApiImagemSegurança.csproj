@@ -106,7 +106,11 @@
     <Compile Include="Models\EventosDispositivo.cs" />
     <Compile Include="Models\Portao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ICameraRepository.cs" />
+    <Compile Include="Repository\IEventosDispositivosRepository.cs" />
+    <Compile Include="Repository\IPortaoRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IUnitDevices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApiImagemSegurança.Models;
 
 namespace WebApiImagemSegurança.Repository
 {
-    public interface IRepository<T> where T : class
+   public interface IPortaoRepository : IRepository<Portao>
     {
-        IEnumerable<T> GetAll();
-        void Add(T entity);
-        void Liga(T entity);
-        void Desliga(T entity);
+        void Abrir(Portao p);
+        void Fechar(Portao p);
     }
 }
