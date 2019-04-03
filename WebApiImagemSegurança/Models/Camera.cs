@@ -10,6 +10,7 @@ namespace WebApiImagemSegurança.Models
         public int idCamera { get; set; }
         public string nome { get; set; }
         public bool sensorLigado { get; set; }
+        public bool cameraLigada { get; set; }
         public List<EventosDispositivo> eventos { get; set; }
     }
 }

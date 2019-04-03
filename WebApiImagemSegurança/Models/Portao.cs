@@ -9,6 +9,8 @@ namespace WebApiImagemSegurança.Models
     {
         public int idPortao { get; set; }
         public string nome { get; set; }
+        public bool portaoLigado { get; set; }
+        public bool portaoAberto { get; set; }
         public List<EventosDispositivo> eventos { get; set; }
     }
 }
