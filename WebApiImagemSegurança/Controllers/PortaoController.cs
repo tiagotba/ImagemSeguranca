@@ -29,7 +29,9 @@ namespace WebApiImagemSegurança.Controllers
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
+                EventosDispositivo eventosDispositivo = null;
                 var lPortao = uow.PortaoRepositorio.Get(p=> p.idPortao == id);
+
                 if (lPortao != null && lPortao.idPortao == portao.idPortao)
                 {
                     if (portao.portaoLigado)
@@ -40,7 +42,25 @@ namespace WebApiImagemSegurança.Controllers
                     {
                         uow.PortaoRepositorio.Liga(portao);
                     }
+
+                    eventosDispositivo = new EventosDispositivo();
+                    eventosDispositivo.Portao = portao;
+                    eventosDispositivo.dataEvento = DateTime.Now;
+                    eventosDispositivo.statusFalha = false;
+                    eventosDispositivo.statusSucesso = true;
+                    uow.eventosDispositivos.SaveEvento(eventosDispositivo);
                 }
+                else
+                {
+                    eventosDispositivo = new EventosDispositivo();
+                    eventosDispositivo.Portao = portao;
+                    eventosDispositivo.dataEvento = DateTime.Now;
+                    eventosDispositivo.statusFalha = true;
+                    eventosDispositivo.statusSucesso = false;
+                    uow.eventosDispositivos.SaveEvento(eventosDispositivo);
+                }
+
+                uow.Commit();
             }
         }
 
@@ -50,7 +70,9 @@ namespace WebApiImagemSegurança.Controllers
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
+                EventosDispositivo eventosDispositivo = null;
                 var lPortao = uow.PortaoRepositorio.Get(p => p.idPortao == id);
+
                 if (lPortao != null && lPortao.idPortao == portao.idPortao)
                 {
                     if (portao.portaoAberto)
@@ -61,7 +83,25 @@ namespace WebApiImagemSegurança.Controllers
                     {
                         uow.portao.Fechar(portao);
                     }
+
+                    eventosDispositivo = new EventosDispositivo();
+                    eventosDispositivo.Portao = portao;
+                    eventosDispositivo.dataEvento = DateTime.Now;
+                    eventosDispositivo.statusFalha = false;
+                    eventosDispositivo.statusSucesso = true;
+                    uow.eventosDispositivos.SaveEvento(eventosDispositivo);
                 }
+                else
+                {
+                    eventosDispositivo = new EventosDispositivo();
+                    eventosDispositivo.Portao = portao;
+                    eventosDispositivo.dataEvento = DateTime.Now;
+                    eventosDispositivo.statusFalha = true;
+                    eventosDispositivo.statusSucesso = false;
+                    uow.eventosDispositivos.SaveEvento(eventosDispositivo);
+                }
+
+                uow.Commit();
             }
         }
 

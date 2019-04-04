@@ -9,6 +9,7 @@ namespace WebApiImagemSegurança.Repository
 {
    public interface IEventosDispositivosRepository
     {
-        void Save(EventosDispositivo eventos);
+        void SaveEvento(EventosDispositivo eventos);
+        EventosDispositivo GetDispositivo(System.Linq.Expressions.Expression<Func<EventosDispositivo, bool>> predicate);
     }
 }

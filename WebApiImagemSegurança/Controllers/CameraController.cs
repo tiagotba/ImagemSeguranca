@@ -30,7 +30,9 @@ namespace WebApiImagemSegurança.Controllers
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
+                EventosDispositivo eventosDispositivo = null;
                 var lCamera = uow.CameraRepositorio.Get(c => c.idCamera == id);
+
                 if (lCamera != null && lCamera.idCamera == camera.idCamera)
                 {
                     if (camera.cameraLigada)
@@ -41,7 +43,24 @@ namespace WebApiImagemSegurança.Controllers
                     {
                         uow.CameraRepositorio.Liga(camera);
                     }
+                    eventosDispositivo = new EventosDispositivo();
+                    eventosDispositivo.Camera = camera;
+                    eventosDispositivo.dataEvento = DateTime.Now;
+                    eventosDispositivo.statusFalha = false;
+                    eventosDispositivo.statusSucesso = true;
+                    uow.eventosDispositivos.SaveEvento(eventosDispositivo);
                 }
+                else
+                {
+                    eventosDispositivo = new EventosDispositivo();
+                    eventosDispositivo.Camera = camera;
+                    eventosDispositivo.dataEvento = DateTime.Now;
+                    eventosDispositivo.statusFalha = true;
+                    eventosDispositivo.statusSucesso = false;
+                    uow.eventosDispositivos.SaveEvento(eventosDispositivo);
+                }
+
+                uow.Commit();
             }
         }
 

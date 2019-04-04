@@ -94,6 +94,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\BD_Context.cs" />
     <Compile Include="Controllers\CameraController.cs" />
+    <Compile Include="Controllers\EventosController.cs" />
     <Compile Include="Controllers\PortaoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -111,6 +112,7 @@
     <Compile Include="Models\Dispositivo.cs" />
     <Compile Include="Models\EventosDispositivo.cs" />
     <Compile Include="Models\Portao.cs" />
+    <Compile Include="Repository\EventosDispositivoRepositorio.cs" />
     <Compile Include="Repository\PortaoRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CameraRepositorio.cs" />
