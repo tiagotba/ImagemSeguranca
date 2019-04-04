@@ -9,6 +9,6 @@ namespace WebApiImagemSegurança.Repository
 {
     public interface ICameraRepository: IRepository<Camera>
     {
-
+        bool VerificaSensor(Camera entity);
     }
 }

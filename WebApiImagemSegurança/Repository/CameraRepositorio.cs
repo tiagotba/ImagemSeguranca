@@ -9,7 +9,7 @@ using WebApiImagemSegurança.Models;
 
 namespace WebApiImagemSegurança.Repository
 {
-    public class CameraRepositorio : IRepository<Camera>
+    public class CameraRepositorio : IRepository<Camera> , ICameraRepository
     {
 
         private BD_Context _context = null;
@@ -52,6 +52,14 @@ namespace WebApiImagemSegurança.Repository
             }
             _context.Cameras.Attach(entity);
             ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+        }
+
+        bool ICameraRepository.VerificaSensor(Camera entity)
+        {
+            if (entity.sensorLigado)
+                return true;
+            else
+                return false;
         }
     }
 }

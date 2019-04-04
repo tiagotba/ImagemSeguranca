@@ -11,6 +11,8 @@ namespace WebApiImagemSegurança.Repository
     {
         private BD_Context _context = null;
         private Repositorio<Portao> portaoRepositorio = null;
+        IPortaoRepository portaoRepository = null;
+        ICameraRepository camera = null;
         private Repositorio<Camera> cameraRepositorio = null;
         private Repositorio<EventosDispositivo> eventosRepositorio = null;
 
@@ -60,8 +62,33 @@ namespace WebApiImagemSegurança.Repository
             }
         }
 
+        public IPortaoRepository portao
+        {
 
+            get
+            {
+                if (portaoRepository == null)
+                {
+                    portaoRepository = new PortaoRepositorio(_context);
+                }
 
+                return portaoRepository;
+            }
+        }
+
+        public ICameraRepository cameraRepository
+        {
+
+            get
+            {
+                if (camera == null)
+                {
+                    camera = new CameraRepositorio(_context);
+                }
+
+                return camera;
+            }
+        }
 
         private bool disposed = false;
 

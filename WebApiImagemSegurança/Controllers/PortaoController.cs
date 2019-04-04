@@ -44,26 +44,26 @@ namespace WebApiImagemSegurança.Controllers
             }
         }
 
-        //[Route("api/abrirportao/{id:int}")]
-        //[HttpPut]
-        //public void AbrirPortao(int id, [FromBody] Portao portao)
-        //{
-        //    using (UnitOfWork uow = new UnitOfWork())
-        //    {
-        //        var lPortao = uow.PortaoRepositorio.Get(p => p.idPortao == id);
-        //        if (lPortao != null && lPortao.idPortao == portao.idPortao)
-        //        {
-        //            if (portao.portaoAberto)
-        //            {
-        //                uow.PortaoRepositorio.(portao);
-        //            }
-        //            else
-        //            {
-        //                uow.PortaoRepositorio.Liga(portao);
-        //            }
-        //        }
-        //    }
-        //}
+        [Route("api/abrirportao/{id:int}")]
+        [HttpPut]
+        public void AbrirPortao(int id, [FromBody] Portao portao)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var lPortao = uow.PortaoRepositorio.Get(p => p.idPortao == id);
+                if (lPortao != null && lPortao.idPortao == portao.idPortao)
+                {
+                    if (portao.portaoAberto)
+                    {
+                        uow.portao.Abrir(portao);
+                    }
+                    else
+                    {
+                        uow.portao.Fechar(portao);
+                    }
+                }
+            }
+        }
 
     }
 }

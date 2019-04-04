@@ -47,23 +47,27 @@ namespace WebApiImagemSegurança.Controllers
 
         [Route("api/ativarsensor/{id:int}")]
         [HttpPut]
-        public void AtivarSensor(int id, [FromBody] Camera camera)
+        public bool AtivarSensor(int id, [FromBody] Camera camera)
         {
+            bool sensorLigado = false;
             using (UnitOfWork uow = new UnitOfWork())
             {
+                
                 var lCamera = uow.CameraRepositorio.Get(c => c.idCamera == id);
                 if (lCamera != null && lCamera.idCamera == camera.idCamera)
                 {
                     if (camera.sensorLigado)
                     {
-                        uow.CameraRepositorio.Desliga(camera);
+                       sensorLigado = uow.cameraRepository.VerificaSensor(camera);
                     }
                     else
                     {
-                        uow.CameraRepositorio.Liga(camera);
+                      sensorLigado =  uow.cameraRepository.VerificaSensor(camera);
                     }
                 }
             }
+
+            return sensorLigado;
         }
 
     }

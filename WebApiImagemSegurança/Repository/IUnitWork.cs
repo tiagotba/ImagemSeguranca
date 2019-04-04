@@ -11,6 +11,8 @@ namespace WebApiImagemSegurança.Repository
     {
         IRepository<Camera> CameraRepositorio { get; }
         IRepository<Portao> PortaoRepositorio { get; }
+        IPortaoRepository portao { get; }
+        ICameraRepository cameraRepository { get; }
         IRepository<EventosDispositivo> EventosRepositorio { get; }
         void Commit();
     }
