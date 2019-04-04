@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using WebApiImagemSegurança.Context;
 
@@ -23,6 +24,11 @@ namespace WebApiImagemSegurança.Repository
         void IRepository<T>.Add(T entity)
         {
             m_DbSet.Add(entity);
+        }
+
+        public T Get(Expression<Func<T, bool>> predicate)
+        {
+            return m_DbSet.FirstOrDefault(predicate);
         }
 
         void IRepository<T>.Desliga(T entity)

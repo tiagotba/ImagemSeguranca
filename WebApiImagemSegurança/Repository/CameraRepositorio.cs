@@ -24,6 +24,11 @@ namespace WebApiImagemSegurança.Repository
             _context.Cameras.Add(entity);
         }
 
+        public Camera Get(System.Linq.Expressions.Expression<Func<Camera, bool>> predicate)
+        {
+            return _context.Cameras.SingleOrDefault(predicate);
+        }
+
         void IRepository<Camera>.Desliga(Camera entity)
         {
             if (entity.cameraLigada)

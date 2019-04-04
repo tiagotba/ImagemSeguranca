@@ -5,11 +5,12 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using WebApiImagemSegurança.Context;
+using WebApiImagemSegurança.Models;
 using WebApiImagemSegurança.Repository;
 
-namespace WebApiImagemSegurança.Models
+namespace WebApiImagemSegurança.Repository
 {
-    public class PortaoRepositorio : IRepository<Portao>
+    public class PortaoRepositorio : IRepository<Portao> , IPortaoRepository
     {
 
         private BD_Context _context = null;
@@ -17,6 +18,11 @@ namespace WebApiImagemSegurança.Models
         public PortaoRepositorio(BD_Context context)
         {
             _context = context;
+        }
+
+        public Portao Get(System.Linq.Expressions.Expression<Func<Portao, bool>> predicate)
+        {
+            return _context.Portoes.SingleOrDefault(predicate);
         }
 
         void IRepository<Portao>.Add(Portao entity)
@@ -44,6 +50,26 @@ namespace WebApiImagemSegurança.Models
             if (entity.portaoLigado == false)
             {
                 entity.portaoLigado = true;
+            }
+            _context.Portoes.Attach(entity);
+            ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+        }
+
+        void IPortaoRepository.Abrir(Portao entity)
+        {
+            if (entity.portaoAberto == false)
+            {
+                entity.portaoAberto = true;
+            }
+            _context.Portoes.Attach(entity);
+            ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+        }
+
+        void IPortaoRepository.Fechar(Portao entity)
+        {
+            if (entity.portaoAberto)
+            {
+                entity.portaoAberto = false;
             }
             _context.Portoes.Attach(entity);
             ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);

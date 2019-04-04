@@ -9,7 +9,7 @@ namespace WebApiImagemSegurança.Repository
 {
    public interface IPortaoRepository : IRepository<Portao>
     {
-        void Abrir(Portao p);
-        void Fechar(Portao p);
+        void Abrir(Portao entity);
+        void Fechar(Portao entity);
     }
 }
