@@ -18,7 +18,7 @@ namespace WebApiImagemSegurança.Controllers
             IEnumerable<Camera> cameras = null;
             using (UnitOfWork uow = new UnitOfWork())
             {
-                cameras = uow.CameraRepositorio.GetAll();
+                cameras = uow.CameraRepositorio.GetAll().ToList();
             }
 
             return cameras;

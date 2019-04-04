@@ -17,7 +17,7 @@ namespace WebApiImagemSegurança.Controllers
             IEnumerable<Portao> portoes = null;
             using (UnitOfWork uow = new UnitOfWork())
             {
-               portoes  = uow.PortaoRepositorio.GetAll();
+               portoes  = uow.PortaoRepositorio.GetAll().ToList();
             }
 
             return portoes;

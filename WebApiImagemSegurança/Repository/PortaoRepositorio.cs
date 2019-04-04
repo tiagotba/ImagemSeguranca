@@ -42,7 +42,7 @@ namespace WebApiImagemSegurança.Repository
 
         IEnumerable<Portao> IRepository<Portao>.GetAll()
         {
-            return _context.Portoes.AsEnumerable();
+            return _context.Portoes.AsEnumerable().ToList();
         }
 
         void IRepository<Portao>.Liga(Portao entity)

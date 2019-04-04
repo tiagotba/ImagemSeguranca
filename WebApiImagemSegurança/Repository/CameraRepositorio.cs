@@ -41,7 +41,7 @@ namespace WebApiImagemSegurança.Repository
 
         IEnumerable<Camera> IRepository<Camera>.GetAll()
         {
-            return _context.Cameras.AsEnumerable();
+            return _context.Cameras.ToList();
         }
 
         void IRepository<Camera>.Liga(Camera entity)
