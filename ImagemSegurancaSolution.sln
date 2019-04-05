@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiImagemSegurança", "WebApiImagemSegurança\WebApiImagemSegurança.csproj", "{90C20E64-F4A1-40A3-837C-C1C0B98F69B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagemSegurancaService", "ImagemSegurancaService\ImagemSegurancaService.csproj", "{2C5DB44E-E5E9-4829-9DCB-16D62CF64757}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{90C20E64-F4A1-40A3-837C-C1C0B98F69B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90C20E64-F4A1-40A3-837C-C1C0B98F69B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90C20E64-F4A1-40A3-837C-C1C0B98F69B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C5DB44E-E5E9-4829-9DCB-16D62CF64757}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C5DB44E-E5E9-4829-9DCB-16D62CF64757}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C5DB44E-E5E9-4829-9DCB-16D62CF64757}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C5DB44E-E5E9-4829-9DCB-16D62CF64757}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

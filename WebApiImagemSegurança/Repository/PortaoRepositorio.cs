@@ -36,8 +36,7 @@ namespace WebApiImagemSegurança.Repository
             {
                 entity.portaoLigado = false;
             }
-            _context.Portoes.Attach(entity);
-            ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         IEnumerable<Portao> IRepository<Portao>.GetAll()
@@ -51,8 +50,7 @@ namespace WebApiImagemSegurança.Repository
             {
                 entity.portaoLigado = true;
             }
-            _context.Portoes.Attach(entity);
-            ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         void IPortaoRepository.Abrir(Portao entity)
@@ -61,8 +59,7 @@ namespace WebApiImagemSegurança.Repository
             {
                 entity.portaoAberto = true;
             }
-            _context.Portoes.Attach(entity);
-            ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         void IPortaoRepository.Fechar(Portao entity)
@@ -71,8 +68,7 @@ namespace WebApiImagemSegurança.Repository
             {
                 entity.portaoAberto = false;
             }
-            _context.Portoes.Attach(entity);
-            ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            _context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

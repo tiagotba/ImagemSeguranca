@@ -33,8 +33,8 @@ namespace WebApiImagemSegurança.Repository
 
         void IRepository<T>.Desliga(T entity)
         {
-            //m_DbSet.Add(entity);
-            ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            m_DbSet.Add(entity);
+            
         }
 
         IEnumerable<T> IRepository<T>.GetAll()
@@ -44,10 +44,8 @@ namespace WebApiImagemSegurança.Repository
 
         void IRepository<T>.Liga(T entity)
         {
-            //  _context.Entry(entity).State = EntityState.Detached;
-              _context.Entry(m_DbSet).State = EntityState.Modified;
-          // ((IObjectContextAdapter)_context).ObjectContext.Detach(entity);
-            ((IObjectContextAdapter)_context.Entry(m_DbSet)).ObjectContext.ObjectStateManager.ChangeObjectState(m_DbSet, EntityState.Modified);
+            _context.Entry(entity).State = EntityState.Modified;
+        
         }
     }
 }

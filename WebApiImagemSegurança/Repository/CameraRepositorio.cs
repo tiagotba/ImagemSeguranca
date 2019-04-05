@@ -35,8 +35,9 @@ namespace WebApiImagemSegurança.Repository
             {
                 entity.cameraLigada = false;
             }
-            _context.Cameras.Attach(entity);
-            ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+           
+            _context.Entry(entity).State = EntityState.Modified;
+          
         }
 
         IEnumerable<Camera> IRepository<Camera>.GetAll()
@@ -46,12 +47,12 @@ namespace WebApiImagemSegurança.Repository
 
         void IRepository<Camera>.Liga(Camera entity)
         {
+            
             if (entity.cameraLigada == false)
             {
                 entity.cameraLigada = true;
             }
-            _context.Cameras.Attach(entity);
-            ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         bool ICameraRepository.VerificaSensor(Camera entity)

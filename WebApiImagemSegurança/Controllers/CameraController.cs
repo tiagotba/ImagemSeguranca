@@ -26,41 +26,76 @@ namespace WebApiImagemSegurança.Controllers
 
         [Route("api/ativarcamera/{id:int}")]
         [HttpPut]
-        public void AtivarCamera(int id, [FromBody] Camera camera)
+        public object AtivarCamera(int id, [FromBody] Camera camera)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                EventosDispositivo eventosDispositivo = null;
-                var lCamera = uow.CameraRepositorio.Get(c => c.idCamera == id);
-
-                if (lCamera != null && lCamera.idCamera == camera.idCamera)
+                try
                 {
-                    if (camera.cameraLigada)
+                    EventosDispositivo eventosDispositivo = null;
+                    var lCamera = uow.CameraRepositorio.Get(c => c.idCamera == id);
+
+                    if (lCamera != null && lCamera.idCamera == camera.idCamera)
                     {
-                        uow.CameraRepositorio.Desliga(camera);
+                        if (camera.cameraLigada)
+                        {
+                            lCamera.cameraLigada = camera.cameraLigada;
+                            uow.cameraRepository.Desliga(lCamera);
+                        }
+                        else
+                        {
+                            lCamera.cameraLigada = camera.cameraLigada;
+                            uow.cameraRepository.Liga(lCamera);
+                        }
+                        //uow.Commit();
+                        eventosDispositivo = new EventosDispositivo();
+                        eventosDispositivo.Camera = camera;
+                        eventosDispositivo.idCamera = camera.idCamera;
+                        eventosDispositivo.idPortao = 1;
+                        eventosDispositivo.dataEvento = DateTime.Now;
+                        eventosDispositivo.statusFalha = false;
+                        eventosDispositivo.statusSucesso = true;
+
+                        uow.eventosDispositivos.SaveEvento(eventosDispositivo);
+                        uow.Commit();
+
+                        return new
+                        {
+                            Evento = eventosDispositivo
+                        };
                     }
                     else
                     {
-                        uow.CameraRepositorio.Liga(camera);
+                        eventosDispositivo = new EventosDispositivo();
+                        eventosDispositivo.Camera = camera;
+                        eventosDispositivo.idCamera = camera.idCamera;
+                        eventosDispositivo.idPortao = 1;
+                        eventosDispositivo.dataEvento = DateTime.Now;
+                        eventosDispositivo.statusFalha = true;
+                        eventosDispositivo.statusSucesso = false;
+                        uow.eventosDispositivos.SaveEvento(eventosDispositivo);
+                        uow.Commit();
+                        var resp = new HttpResponseMessage(HttpStatusCode.NotImplemented)
+                        {
+                            Content = new StringContent("Erro de processamento"),
+                            ReasonPhrase = "A Camera não existe no cliente." + eventosDispositivo.idCamera + "," + eventosDispositivo.statusFalha
+                        };
+
+                        throw new HttpResponseException(resp);
                     }
-                    eventosDispositivo = new EventosDispositivo();
-                    eventosDispositivo.Camera = camera;
-                    eventosDispositivo.dataEvento = DateTime.Now;
-                    eventosDispositivo.statusFalha = false;
-                    eventosDispositivo.statusSucesso = true;
-                    uow.eventosDispositivos.SaveEvento(eventosDispositivo);
                 }
-                else
+                catch (Exception ex)
                 {
-                    eventosDispositivo = new EventosDispositivo();
-                    eventosDispositivo.Camera = camera;
-                    eventosDispositivo.dataEvento = DateTime.Now;
-                    eventosDispositivo.statusFalha = true;
-                    eventosDispositivo.statusSucesso = false;
-                    uow.eventosDispositivos.SaveEvento(eventosDispositivo);
+                    var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                    {
+                        Content = new StringContent("Erro de processamento na Api"),
+                        ReasonPhrase = "Excessão: " + ex.Message + "," + ex.InnerException
+                    };
+
+                    throw new HttpResponseException(resp);
+
                 }
 
-                uow.Commit();
             }
         }
 
@@ -69,24 +104,36 @@ namespace WebApiImagemSegurança.Controllers
         public bool AtivarSensor(int id, [FromBody] Camera camera)
         {
             bool sensorLigado = false;
-            using (UnitOfWork uow = new UnitOfWork())
+            try
             {
-                
-                var lCamera = uow.CameraRepositorio.Get(c => c.idCamera == id);
-                if (lCamera != null && lCamera.idCamera == camera.idCamera)
+                using (UnitOfWork uow = new UnitOfWork())
                 {
-                    if (camera.sensorLigado)
+
+                    var lCamera = uow.CameraRepositorio.Get(c => c.idCamera == id);
+                    if (lCamera != null && lCamera.idCamera == camera.idCamera)
                     {
-                       sensorLigado = uow.cameraRepository.VerificaSensor(camera);
-                    }
-                    else
-                    {
-                      sensorLigado =  uow.cameraRepository.VerificaSensor(camera);
+                        if (lCamera.sensorLigado)
+                        {
+                            sensorLigado = uow.cameraRepository.VerificaSensor(lCamera);
+                        }
+
                     }
                 }
-            }
 
-            return sensorLigado;
+                return sensorLigado;
+            }
+            catch (Exception ex)
+            {
+
+                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Erro de processamento na Api"),
+                    ReasonPhrase = "Excessão: " + ex.Message + "," + ex.InnerException
+                };
+
+                throw new HttpResponseException(resp);
+            }
+           
         }
 
     }
