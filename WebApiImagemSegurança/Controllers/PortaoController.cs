@@ -45,6 +45,7 @@ namespace WebApiImagemSegurança.Controllers
 
                     eventosDispositivo = new EventosDispositivo();
                     eventosDispositivo.Portao = portao;
+                    eventosDispositivo.idPortao = portao.idPortao;
                     eventosDispositivo.dataEvento = DateTime.Now;
                     eventosDispositivo.statusFalha = false;
                     eventosDispositivo.statusSucesso = true;
@@ -54,6 +55,7 @@ namespace WebApiImagemSegurança.Controllers
                 {
                     eventosDispositivo = new EventosDispositivo();
                     eventosDispositivo.Portao = portao;
+                    eventosDispositivo.idPortao = portao.idPortao;
                     eventosDispositivo.dataEvento = DateTime.Now;
                     eventosDispositivo.statusFalha = true;
                     eventosDispositivo.statusSucesso = false;
